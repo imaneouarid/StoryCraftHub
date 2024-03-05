@@ -1,5 +1,5 @@
 // models/storyModel.js
-import mongoose from 'mongoose';
+const mongoose = require('mongoose') ;
 
 const storySchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -11,4 +11,4 @@ const storySchema = new mongoose.Schema({
 
 const Story = mongoose.model('Story', storySchema);
 
-export default Story;
+module.exports =Story;

@@ -1,5 +1,5 @@
 // models/topicModel.js
-import mongoose from 'mongoose';
+const mongoose = require('mongoose') ;
 
 const topicSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
@@ -7,4 +7,4 @@ const topicSchema = new mongoose.Schema({
 
 const Topic = mongoose.model('Topic', topicSchema);
 
-export default Topic;
+module.exports = Topic;
