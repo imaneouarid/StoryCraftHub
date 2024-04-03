@@ -6,9 +6,9 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   bio: { type: String, default: 'No bio created' },
-  image: { type: String, default: 'default-profile-image.jpg' }, // Assuming you store images' paths
+  image: { type: String, default: 'default-profile-image.jpg' }, 
   joinDate: { type: Date, default: Date.now },
-  interests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic' }], // Reference to topics
+  interests: [{ type: String }], 
   role: {
     type: String,
     enum: ['user', 'admin'],

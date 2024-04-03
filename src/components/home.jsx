@@ -16,72 +16,8 @@ const btnOptions = [
 const Home = () => {
   const navigate = useNavigate();
   const [interests, setInterests] = useState([]);
-  const [users, setUsers] = useState();
   const [loadInterests, setLoadInterests] = useState(true);
-  const location = useLocation();
 
-  // get the name of the logged in user
-  const name = JSON.parse(localStorage.getItem("user"));
-  // get the id of logged in user
-  const foundId = users?.find((user) => user.username === name)?._id;
-
-
-  useEffect(() => {
-    if (interests.length) {
-      // add active class to the buttons
-      const btns = document.querySelectorAll(".home_main_div_btns_btn");
-      btns.forEach((btn) => {
-        if (interests.includes(btn.innerText)) {
-          btn.classList.add("active");
-        }
-      });
-    } else {
-      setInterests([]);
-    }
-    // eslint-disable-next-line
-  }, [interests.length]);
-
-  const handleClick = (e) => {
-    e.target.classList.toggle("active");
-    if (interests.includes(e.target.innerText)) {
-      const index = interests.indexOf(e.target.innerText);
-      interests.splice(index, 1);
-    } else {
-      interests.push(e.target.innerText);
-    }
-    // push selected interests to the database
-    const updateInterests = async () => {
-      try {
-        // eslint-disable-next-line
-        const response = await axios.put(`/`, {
-          username: name,
-          interests: interests,
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    updateInterests();
-  };
-
-  // fetch interests from user
-  useEffect(() => {
-    const getInterests = async () => {
-      try {
-        const response = await axios.get(`/users/${name}`);
-        // return the interests of the logged in user
-        const userInterests = response.data;
-        // set the interests in the state
-        setInterests(userInterests);
-        setLoadInterests(false);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getInterests();
-  }, []);
-
-  // toast message
   const showToastMessage = () => {
     toast.error(`Please select at least one interest to continue.`, {
       position: toast.POSITION.TOP_RIGHT,
@@ -89,7 +25,36 @@ const Home = () => {
     });
   };
 
-  // next page option
+  const handleClick = (interest) => {
+    setInterests((prevInterests) => {
+      if (prevInterests.includes(interest)) {
+        return prevInterests.filter((item) => item !== interest);
+      } else {
+        return [...prevInterests, interest];
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (interests.length) {
+      const updateInterests = async () => {
+        const foundId = localStorage.getItem("UserID");
+
+        try {
+          const response = await axios.put(`http://localhost:3000/users/${foundId}`, {
+            interests: interests,
+          });
+          console.log(response.data);
+          setLoadInterests(false);
+        } catch (err) {
+          console.log(err);
+          // Handle error
+        }
+      };
+      updateInterests();
+    }
+  }, [interests]);
+
   const nextPageOption = () => {
     if (interests.length) {
       navigate("/main");
@@ -109,28 +74,26 @@ const Home = () => {
         </nav>
       </header>
       <div className="home_main_div">
-        <>
-          <p className="welcome">Welcome! </p> <br />
-          <p className="interests home_interests">
-            Customize your account. Select the topics that interest you below.
-            What do you like reading and/or writing about?
-          </p>
-        </>
-
-        {/* display interests */}
+        <p className="welcome">Welcome!</p>
+        <br />
+        <p className="interests home_interests">
+          Customize your account. Select the topics that interest you below.
+          What do you like reading and/or writing about?
+        </p>
         <div className="home_main_div_btns">
           {btnOptions.map((btn, index) => (
             <button
               key={index}
-              className="home_main_div_btns_btn"
-              onClick={handleClick}
+              className={`home_main_div_btns_btn ${
+                interests.includes(btn) ? "active" : ""
+              }`}
+              onClick={() => handleClick(btn)}
             >
               {btn}
             </button>
           ))}
         </div>
       </div>
-      {/* next page option */}
       {loadInterests ? (
         <div className="preloader_div">
           <img
@@ -153,4 +116,6 @@ const Home = () => {
 };
 
 export default Home;
+
+
 

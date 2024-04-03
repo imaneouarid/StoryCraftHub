@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 const userRoutes = require ('./routes/userRoutes.js');
 const topicRoutes = require('./routes/topicRoutes.js');
 const storyRoutes = require('./routes/storyRoutes.js');
-// const authMiddleware = require('./Middlewares/AuthMiddlewares.js');
-// const adminRoutes = require('./routes/adminRoutes.js');
+const User = require('./Models/userModel.js');
+
+
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
 

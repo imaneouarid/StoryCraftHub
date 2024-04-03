@@ -12,13 +12,10 @@ const Key = process.env.SECRET_TOKEN
 const UserController = {
     register: async (req, res) => {
         try {
-            // Log the entire req.body object to inspect its structure
             console.log('Request Body:', req.body);
     
-            // Destructure username, email, and password from req.body
             const { username, email, password } = req.body;
     
-            // Check if the user already exists
             const existingUser = await User.findOne({ email });
             if (existingUser) {
                 return res.status(400).json({ error: 'User already exists' });
@@ -96,6 +93,8 @@ const accessToken = jwt.sign({ email: user.email, userId: user._id }, Key, {
   getUserProfile: async (req, res) => {
     try {
       const userId = req.params.userId;
+      console.log('Received userId:', userId);
+
 
       const user = await User.findById(userId);
       if (!user) {
@@ -112,10 +111,10 @@ const accessToken = jwt.sign({ email: user.email, userId: user._id }, Key, {
   updateProfile: async (req, res) => {
     try {
       const userId = req.params.userId;
-
+      const { interests } = req.body;
       const updatedUser = await User.findByIdAndUpdate(
         userId,
-        { $set: req.body },
+        { $set: { interests: interests } }, // Update interests field
         { new: true }
       );
 

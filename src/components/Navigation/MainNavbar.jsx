@@ -1,25 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
-// import Logout from "../Logout";
+
+
 import "../../style/navbar.css";
 import logo from "../../assets/logo.png";
+import { useCookies } from "react-cookie";
 
 const MainNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
 
-  // remove active class from active link
+
+
+
   useEffect(() => {
     const activeLink = document.querySelector(".active");
     if (activeLink) {
       activeLink.classList.remove("active");
       activeLink.classList.add("activated");
     }
-    // eslint-disable-next-line
+
   }, [location.pathname]);
+
+  const handleLogout = () => {
+    localStorage.clear();
+
+    removeCookie("accessToken");
+
+   navigate("/");
+  };
+
 
   const handleToggle = () => {
     const toggle = document.getElementById("toggle");
@@ -46,7 +62,7 @@ const MainNavbar = () => {
   };
 
   return (
-    <header className="main_navbar">
+    <header className="main_navbar ">
       <nav id="main_nav">
         <Link to="/" className="nav_logo_link">
           <img src={logo} alt="logo" className="nav_logo" />
@@ -107,7 +123,13 @@ const MainNavbar = () => {
             <li className="main_navbar_list logout_nav_btn">
               {/* <Logout /> */}
             </li>
+            <li>
+            <button onClick={handleLogout} className="logout-btn">
+              <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+            </button>
+          </li>
           </div>
+         
         </ul>
       </nav>
       <div id="toggle" onClick={handleToggle}></div>

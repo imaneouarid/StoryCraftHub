@@ -16,8 +16,7 @@ const TopicController = {
       try {
         const { username, interests } = req.body;
   
-        // Assuming you have a User model
-        // Replace 'User' with your actual user model
+       
         const user = await User.findOneAndUpdate(
           { username },
           { interests },

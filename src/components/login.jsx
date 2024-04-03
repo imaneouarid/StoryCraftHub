@@ -56,6 +56,9 @@ console.log("username:",response.data.username);
     
           setCookies("access_token", response.data.accessToken);
           window.localStorage.setItem('UserID', response.data.id);
+          window.localStorage.setItem('Usename', response.data.username);
+
+
           showToastMessage(response);
 
           console.log(response);
