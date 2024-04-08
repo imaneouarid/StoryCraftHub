@@ -17,7 +17,7 @@ const About = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/main" className="link">
+              <NavLink to="/hero" className="link">
                 Main
               </NavLink>
             </li>
