@@ -16,11 +16,11 @@ const btnOptions = [
 const Home = () => {
   const navigate = useNavigate();
   const [interests, setInterests] = useState([]);
-  const [loadInterests, setLoadInterests] = useState(true);
+  const [loadInterests, setLoadInterests] = useState(false);
 
   const showToastMessage = () => {
     toast.error(`Please select at least one interest to continue.`, {
-      position: toast.POSITION.TOP_RIGHT,
+      position: 'top-right',
       className: "error_toast",
     });
   };

@@ -17,7 +17,7 @@ app.use(express.json());
 
 
 const corsOptions = {
-    origin: 'http://localhost:5173', // Replace with the actual origin of your frontend app
+    origin: 'http://localhost:5173',
     credentials: true,
   };
   
@@ -29,18 +29,15 @@ const PORT = process.env.PORT
 app.use('/users', userRoutes);
 app.use('/topics', topicRoutes);
 app.use('/stories', storyRoutes);
-// app.use('/admin', adminRoutes); 
 app.get('/users/interests/:username', async (req, res) => {
     const { username } = req.params;
   
     try {
-      // Retrieve user interests based on the provided username
       const user = await User.findOne({ username });
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
   
-      // Extract and return user interests
       const userInterests = user.interests;
       res.status(200).json(userInterests);
     } catch (error) {

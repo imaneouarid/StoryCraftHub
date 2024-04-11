@@ -62,7 +62,7 @@ console.log("username:",response.data.username);
           showToastMessage(response);
 
           console.log(response);
-          navigate('/main')
+          navigate('/home')
 
           
         } catch (error) {

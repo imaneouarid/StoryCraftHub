@@ -61,7 +61,6 @@ const StoryController = {
   getStoriesByTopic: async (req, res) => {
     const { topicId } = req.params;
     try {
-      // Retrieve stories based on the provided topicId
       const stories = await Story.find({ topic: topicId });
       res.status(200).json(stories);
     } catch (error) {

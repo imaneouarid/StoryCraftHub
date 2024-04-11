@@ -27,56 +27,53 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (firstName.length < 3  || userName.length < 3) {
-      setResponse(
-        "First name,  and username must be at least 3 characters long"
-      );
+      setResponse("First name and username must be at least 3 characters long");
       return;
     } else if (!PWD_REGEX.test(password)) {
-      setResponse(
-        "Password must be 8-24 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-      );
+      setResponse("Password must be 8-24 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character");
       return;
     } else if (password !== confirmPassword) {
       setResponse("Passwords do not match");
       return;
     }
-
+  
     setLoadSubmit(true);
-
+  
     try {
-        const response = await axios.post("http://localhost:3000/users/register", {
-            username: userName,
-            email: Email,
-            password: password,
-          }, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-          showToastMessage(response); // Pass the server response to showToastMessage
+      const response = await axios.post("http://localhost:3000/users/register", {
+        username: userName,
+        email: Email,
+        password: password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response);
+      showToastMessage(response.data); 
       setFirstName("");
       setEmail("");
       setUserName("");
       setPassword("");
       setConfirmPassword("");
-    //   showToastMessage();
       navigate("/login", { replace: true });
     } catch (error) {
-      if (!error.response) {
-        setResponse("No response from the server");
-      } else {
-        setResponse(error.response.data.message);
-      }
-    }
+      console.error("Error:", error);
+      setResponse(error.response.data.error);
 
+
+    }
+    
+  
     setLoadSubmit(false);
   };
+  
 
   const showToastMessage = () => {
     toast.success(`Registration successful 🤝 Please log in to continue.`, {
-      position: toast.POSITION.TOP_RIGHT,
+      position: 'top-right',
       className: "toast-message",
     });
   };

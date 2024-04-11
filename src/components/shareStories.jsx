@@ -105,7 +105,7 @@ const handleAuthor = (e) => {
   // Show toast message
   const showToastMessage = (message) => {
     toast.success(message, {
-      position: toast.POSITION.TOP_RIGHT,
+      position: 'top-right',
       className: "toast-message",
     });
   };
@@ -158,7 +158,7 @@ const handleAuthor = (e) => {
       setAuthor(JSON.parse(localStorage.getItem("Usename")));
       resetGenres();
       window.scrollTo(0, 0);
-      showToastMessage(response.data.message);
+      showToastMessage(response.data);
     } catch (error) {
       if (!error.response) {
         setResponse("No server response");

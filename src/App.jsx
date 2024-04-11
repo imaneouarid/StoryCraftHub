@@ -16,7 +16,6 @@ import MyStories from "./components/MyStories.jsx";
 import ShareStories from "./components/shareStories.jsx";
 import "./style/normalize.css"
 import Hero from "./components/heroSection.jsx";
-import { AuthProvider } from './components/AuthContext';
 
 
 
@@ -25,7 +24,6 @@ import { AuthProvider } from './components/AuthContext';
 function App() {
   return (
     <>
-        <AuthProvider>
 
     <ToastContainer />
 
@@ -49,7 +47,7 @@ function App() {
 
 
 
-        {/* <Route path="/my_stories" element={<MyStories/>} /> */}
+        <Route path="/my_stories" element={<MyStories/>} />
 
 
 
@@ -62,10 +60,8 @@ function App() {
         
 
 
-        {/* Other routes */}
       </Routes>
     </Router>
-    </AuthProvider>
 
     </>
   );

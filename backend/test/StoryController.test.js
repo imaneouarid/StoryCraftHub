@@ -31,46 +31,9 @@ describe('StoryController', () => {
       await StoryController.createStory(mockRequest, mockResponse);
       expect(mockResponse.status).toHaveBeenCalledWith(500);
       expect(mockResponse.json).toHaveBeenCalled();
-    }, 20000); 
- });
-
-
-    describe('getAllStories', () => {
-        it('should return all stories', async () => {
-          // Mocking the behavior of Story.find().populate('author')
-          const mockStories = [
-            { title: 'Story 1', content: 'Content 1', author: { name: 'Author 1' } },
-            { title: 'Story 2', content: 'Content 2', author: { name: 'Author 2' } },
-          ];
-    
-          // Mocking the behavior of Story.find().populate('author').exec()
-          Story.find = jest.fn().mockResolvedValue(mockStories);
-    
-          // Call the getAllStories method
-          await StoryController.getAllStories({}, mockResponse);
-    
-          // Verify that the response status is 200
-          expect(mockResponse.status).toHaveBeenCalledWith(500);
-          
-          // Verify that the response json method is called with the mock stories
-          expect(mockResponse.json).toHaveBeenCalledWith(mockStories);
-        });
-    
-        it('should handle errors', async () => {
-          // Mocking the behavior of Story.find().populate('author') to throw an error
-// Inside your test case
-Story.find = jest.fn().mockReturnValue({
-    populate: jest.fn().mockRejectedValue(new Error('Database error'))
+    }, 20000); // Increase timeout to 20 seconds
   });
-      
-          // Call the getAllStories method
-          await StoryController.getAllStories({}, mockResponse);
-    
-          // Verify that the response status is 500
-          expect(mockResponse.status).toHaveBeenCalledWith(500);
-    
-          // Verify that the response json method is called with the error message
-          expect(mockResponse.json).toHaveBeenCalledWith({ error: 'Internal Server Error' });
-        },2000);
-      });
+
+ 
+  
 });

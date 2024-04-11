@@ -124,8 +124,8 @@ const MainNavbar = () => {
               {/* <Logout /> */}
             </li>
             <li>
-            <button onClick={handleLogout} className="logout-btn">
-              <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+            <button onClick={handleLogout} className="logout-btn text-red-600">
+              <FontAwesomeIcon icon={faSignOutAlt} className="text-red-600" /> Logout
             </button>
           </li>
           </div>
