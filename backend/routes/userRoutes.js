@@ -1,6 +1,7 @@
 // routes/userRoutes.js
 const express = require('express');
 const UserController = require('../controllers/UserController.js') ;
+const validateToken = require("../Middlewares/tokenValidation")
 
 const router = express.Router();
 

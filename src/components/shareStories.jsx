@@ -230,11 +230,11 @@ const handleAuthor = (e) => {
               <div className="individual_author_input">
               <input
                   type="radio"
-                  name="owner"
-                  id="owner"
+                  name="author"
+                  id="author"
                   value={localStorage.getItem("UserID")}
                   checked={author === localStorage.getItem("UserID")}
-                  onChange={(e) => setAuthor(e.target.value)}
+                  onChange={handleAuthor}
                 />
                 <label htmlFor="owner">
                   {(localStorage.getItem("Usename"))}

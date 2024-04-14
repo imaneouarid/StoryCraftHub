@@ -64,7 +64,7 @@ console.log("stories",stories[5]?.topics);
 
             }) } 
 
-                 <h1 className="authorh"> {story.title}  created by {story.isAnonymous==true ? "Anonyme" : story.author?.username }  </h1>
+                 <h1 className="authorh"> {story.title}  created by {story.isAnonymous==true ? "Anonnyme" : story.author?.username }  </h1>
                  {/* <p>Author: {story.author}</p> */}
                  <p>Content : {story.content} </p>
                  <p>Date: {story.createdDate}</p>

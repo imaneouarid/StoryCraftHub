@@ -40,11 +40,8 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserStories = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/stories`, {
-          params: {
-            userId: currentUser
-          }
-        });
+        const response = await axios.get(`http://localhost:3000/stories/${currentUser}`);
+
         setUserStories(response.data);
       } catch (error) {
         console.error(error);

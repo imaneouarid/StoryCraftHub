@@ -71,11 +71,32 @@ const StoryController = {
 
   getUserStories: async (req, res) => {
     try {
-      const userId = req.user.id;
-      const stories = await Story.find({ user: userId });
+      const userId = req.params.userId;
+      console.log("User ID:", userId); 
+
+      const stories = await Story.find({ author: userId });
+      console.log("Stories:", stories);
+
       res.status(200).json({ stories });
     } catch (error) {
       console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
+  updateStory: async (req, res) => {
+    try {
+      const storyId = req.params.id;
+      const updatedData = req.body;
+  
+      const updatedStory = await Story.findByIdAndUpdate(storyId, updatedData, { new: true });
+  
+      if (!updatedStory) {
+        return res.status(404).json({ error: 'Story not found' });
+      }
+  
+      res.json(updatedStory);
+    } catch (error) {
+      console.error('Error updating story:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }

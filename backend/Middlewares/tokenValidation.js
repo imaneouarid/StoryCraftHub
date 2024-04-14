@@ -1,32 +1,27 @@
-// tokenValidation.js
-
 const jwt = require('jsonwebtoken');
-const Key = process.env.SECRET_TOKEN;
 
-const authMiddleware = (req, res, next) => {
-  const accessToken = req.cookies ? req.cookies['access_token'] : null;
+const validateToken = (req, res, next) => {
+  // Extract the token from the request headers, cookies, or wherever it's sent
+  const token = req.cookies.access_token;
 
-  if (req.path === '/users/register' && req.method === 'POST') {
-    return next();
-  }
-
-  if (!accessToken) {
-    return res.status(401).json({ error: 'User not authenticated - Missing token' });
+  // If no token is provided, respond with an error
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized: No token provided' });
   }
 
   try {
-    const decodedToken = jwt.verify(accessToken, Key);
+    // Verify the token using your secret key
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    
+    // Attach the decoded user information to the request object for later use
+    req.user = decoded;
 
-    if (decodedToken) {
-      req.authenticated = true;
-      return next();
-    } else {
-      return res.status(401).json({ error: 'User not authenticated - Invalid token' });
-    }
+    // Call the next middleware or route handler
+    next();
   } catch (error) {
-    console.error('Authentication error:', error);
-    return res.status(401).json({ error: 'User not authenticated - Token verification failed' });
+    // If verification fails (e.g., token expired or invalid), respond with an error
+    return res.status(401).json({ error: 'Unauthorized: Invalid token' });
   }
 };
 
-module.exports = authMiddleware;
+module.exports = validateToken;

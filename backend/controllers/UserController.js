@@ -83,6 +83,7 @@ const accessToken = jwt.sign({ email: user.email, userId: user._id }, Key, {
 
     //   return res.json({ accessToken, id: user._id });
     return res.status(200).json({ message: 'Login successful', accessToken, id: user._id , username});
+    
 
     } catch (error) {
       console.error(error);
