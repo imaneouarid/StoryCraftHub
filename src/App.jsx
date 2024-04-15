@@ -13,57 +13,43 @@ import DeleteAccount from "./components/DeleteAccount.jsx";
 import ReadStories from "./components/readStories.jsx";
 import Explore from "./components/Explore.jsx";
 import MyStories from "./components/MyStories.jsx";
-import ShareStories from "./components/shareStories.jsx";
 import "./style/normalize.css"
 import Hero from "./components/heroSection.jsx";
 import ContactForm from "./components/contact.jsx";
+import  ShareStories from "./components/shareStories.jsx"
 
 
 
 
-// Define your main App component
 function App() {
   return (
     <>
 
-    <ToastContainer />
+      <ToastContainer />
 
-    <Router>
+      <Router>
 
-      <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Hero />} /> 
-        <Route path="/login" element={<Login/>} />
-        <Route path="/about" element={<About/>} />
-        <Route path="/main" element={<MainPage/>} />
-        <Route path="/home" element={<Home/>} />
-        <Route path="/profile" element={<Profile/>} />
-        <Route path="/delete" element={<DeleteAccount/>} />
-        <Route path="/read" element={<ReadStories/>} />
-        <Route path="/explore" element={<Explore/>} />
-        <Route path="/share" element={<ShareStories/>} />
-        <Route path="/hero" element={<Hero/>} />
-
-        <Route path="/contact" element={<ContactForm/>} />
-
-
-
-
-        <Route path="/my_stories" element={<MyStories/>} />
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Hero />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/delete" element={<DeleteAccount />} />
+          <Route path="/read" element={<ReadStories />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/hero" element={<Hero />} />
+          <Route path="/contact" element={<ContactForm />} />
+          <Route path="/my_stories" element={<MyStories />} />
+          <Route path="/share" element={<ShareStories />} />
 
 
 
 
-
-
-
-
-        
-        
-
-
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
 
     </>
   );
