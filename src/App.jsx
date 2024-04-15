@@ -30,7 +30,6 @@ function App() {
 
     <Router>
 
-      {/* Other routes */}
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Hero />} /> 
