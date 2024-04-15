@@ -10,28 +10,21 @@ import preloader from "../assets/submit.gif";
 const DeleteAccount = () => {
   const { username } = useParams();
   const navigate = useNavigate()
-  const [loadSubmit, setLoadSubmit] = useState(false); // to show preloader when submit button is clicked
+  const [loadSubmit, setLoadSubmit] = useState(false); 
 
-  // Function to handle account deletion
   const deleteAccount = async () => {
     try {
-      // Display preloader while the request is being made
       setLoadSubmit(true);
 
-      // Send DELETE request to delete user account
-      const response = await axios.delete(`/api/users/${username}`);
+      const response = await axios.delete(`http://localhost:3000/users/${username}`);
 
-      // Display success message
       toast.success(response.data.message);
 
-      // Clear local storage and navigate to login page
       localStorage.clear();
       navigate("/login");
     } catch (err) {
-      // Display error message if request fails
       toast.error(err.response?.data?.message || "Failed to delete account");
 
-      // Hide preloader on error
       setLoadSubmit(false);
     }
   };
@@ -51,7 +44,7 @@ const DeleteAccount = () => {
           <button
             className="delete_account_permanently"
             onClick={deleteAccount}
-            disabled={loadSubmit} // Disable button while the request is being made
+            disabled={loadSubmit} 
           >
             <span>Delete Account Permanently</span>
             {loadSubmit && (

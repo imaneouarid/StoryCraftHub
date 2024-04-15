@@ -2,9 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require ('./routes/userRoutes.js');
-const topicRoutes = require('./routes/topicRoutes.js');
 const storyRoutes = require('./routes/storyRoutes.js');
-const User = require('./Models/userModel.js');
 
 
 const cors = require('cors');
@@ -20,31 +18,31 @@ const corsOptions = {
     origin: 'http://localhost:5173',
     credentials: true,
   };
-  
   app.use(cors(corsOptions));
   app.use(cookieParser())
 
 // app.use(authMiddleware); 
 const PORT = process.env.PORT 
 app.use('/users', userRoutes);
-app.use('/topics', topicRoutes);
 app.use('/stories', storyRoutes);
-app.get('/users/interests/:username', async (req, res) => {
-    const { username } = req.params;
+
+
+// app.get('/users/interests/:username', async (req, res) => {
+//     const { username } = req.params;
   
-    try {
-      const user = await User.findOne({ username });
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
+//     try {
+//       const user = await User.findOne({ username });
+//       if (!user) {
+//         return res.status(404).json({ error: 'User not found' });
+//       }
   
-      const userInterests = user.interests;
-      res.status(200).json(userInterests);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
+//       const userInterests = user.interests;
+//       res.status(200).json(userInterests);
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//     }
+//   });
 
 
 

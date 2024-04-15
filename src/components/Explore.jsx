@@ -13,7 +13,6 @@ const Explore = () => {
   const [error, setError] = useState(null);
 
 
-  // handle fetch stories
   useEffect(() => {
     const fetchStories = async () => {
       try {
@@ -65,9 +64,8 @@ console.log("stories",stories[5]?.topics);
             }) } 
 
                  <h1 className="authorh"> {story.title}  created by {story.isAnonymous==true ? "Anonnyme" : story.author?.username }  </h1>
-                 {/* <p>Author: {story.author}</p> */}
                  <p>Content : {story.content} </p>
-                 <p>Date: {story.createdDate}</p>
+                 <p>Date: {new Date(story.createdDate).toDateString()}</p>
               </div> 
   </div>;
 })}

@@ -13,7 +13,7 @@ import MainNavbar from './Navigation/MainNavbar';
 const Profile = () => {
   const currentUser = localStorage.getItem('UserID');
   const [userData, setUserData] = useState(null);
-  const [userStories, setUserStories] = useState([]); // Define userStories state
+  const [userStories, setUserStories] = useState([]); 
   const [showStories, setShowStories] = useState(false);
   const [showInterests, setShowInterests] = useState(false);
 
@@ -40,9 +40,9 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserStories = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/stories/${currentUser}`);
+        const response = await axios.get(`http://localhost:3000/stories/user/${currentUser}`);
 
-        setUserStories(response.data);
+        setUserStories(response.data.stories);
       } catch (error) {
         console.error(error);
       }

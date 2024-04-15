@@ -16,6 +16,7 @@ import MyStories from "./components/MyStories.jsx";
 import ShareStories from "./components/shareStories.jsx";
 import "./style/normalize.css"
 import Hero from "./components/heroSection.jsx";
+import ContactForm from "./components/contact.jsx";
 
 
 
@@ -43,6 +44,8 @@ function App() {
         <Route path="/explore" element={<Explore/>} />
         <Route path="/share" element={<ShareStories/>} />
         <Route path="/hero" element={<Hero/>} />
+
+        <Route path="/contact" element={<ContactForm/>} />
 
 
 

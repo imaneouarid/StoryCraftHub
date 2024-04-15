@@ -12,17 +12,15 @@ const StoryController = {
         author = null;
       }
 
-      // Create the story
       const story = new Story({
         title,
         content,
         topics,
         isAnonymous,
-        author, // Set author to the valid ObjectId or null
+        author, 
         createdDate: new Date()
       });
 
-      // Save the story
       const savedStory = await story.save();
       console.log('Story saved successfully:', savedStory);
       res.status(200).json(savedStory);
@@ -47,6 +45,8 @@ const StoryController = {
     }
   },
 
+  
+
   getAllStories: async (req, res) => {
     try {
       const stories = await Story.find().populate('author');
@@ -58,48 +58,20 @@ const StoryController = {
     }
   },
 
-  getStoriesByTopic: async (req, res) => {
-    const { topicId } = req.params;
-    try {
-      const stories = await Story.find({ topic: topicId });
-      res.status(200).json(stories);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  },
+ 
 
   getUserStories: async (req, res) => {
     try {
-      const userId = req.params.userId;
-      console.log("User ID:", userId); 
-
-      const stories = await Story.find({ author: userId });
-      console.log("Stories:", stories);
-
+        const userId = req.params.userId;
+        const stories = await Story.find({ author: userId });
       res.status(200).json({ stories });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   },
-  updateStory: async (req, res) => {
-    try {
-      const storyId = req.params.id;
-      const updatedData = req.body;
-  
-      const updatedStory = await Story.findByIdAndUpdate(storyId, updatedData, { new: true });
-  
-      if (!updatedStory) {
-        return res.status(404).json({ error: 'Story not found' });
-      }
-  
-      res.json(updatedStory);
-    } catch (error) {
-      console.error('Error updating story:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  }
+
+
 };
 
 module.exports = StoryController;

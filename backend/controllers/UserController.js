@@ -24,15 +24,12 @@ const UserController = {
                 return res.status(400).json({ error: 'Invalid email format' });
             }
     
-            // Validate password strength
             if (!validator.isStrongPassword(password)) {
                 return res.status(400).json({ error: 'Password is too weak' });
             }
     
-            // Hash the password
             const hashedPassword = await bcrypt.hash(password, 10);
     
-            // Create a new user
             const newUser = await User.create({
                 username,
                 email,
@@ -53,30 +50,25 @@ const UserController = {
 
       const { email, password } = req.body;
 
-      // Find the user by email
       const user = await User.findOne({ email });
       if (!user) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
 
-      // Check the password
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (!passwordMatch) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
 
-      // Generate JWT token
-    // Login route
 const accessToken = jwt.sign({ email: user.email, userId: user._id }, Key, {
     expiresIn: '14h',
   });
   console.log('Access Token:', accessToken);
 
-  // Corrected cookie key
   res.cookie("access_token", accessToken, { maxAge: 90000, httpOnly: true });
   
 
-      console.log('User:', user); // Log the user object
+      console.log('User:', user); 
     console.log('Access Token:', accessToken); 
 
     const username = user.username ;
@@ -115,7 +107,7 @@ const accessToken = jwt.sign({ email: user.email, userId: user._id }, Key, {
       const { interests } = req.body;
       const updatedUser = await User.findByIdAndUpdate(
         userId,
-        { $set: { interests: interests } }, // Update interests field
+        { $set: { interests: interests } }, 
         { new: true }
       );
 
@@ -129,6 +121,21 @@ const accessToken = jwt.sign({ email: user.email, userId: user._id }, Key, {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   },
+  deleteProfile: async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        
+        const deletedUser = await User.findByIdAndDelete(userId);
+
+        if (!deletedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json({ message: 'User profile deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 };
 
 module.exports = UserController;

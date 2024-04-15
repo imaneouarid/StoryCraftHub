@@ -48,7 +48,6 @@ const Home = () => {
           setLoadInterests(false);
         } catch (err) {
           console.log(err);
-          // Handle error
         }
       };
       updateInterests();

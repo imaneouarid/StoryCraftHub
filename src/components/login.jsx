@@ -17,7 +17,6 @@ const Login = () => {
 
 
 
-//   const newEmail= email.charAt(0).toUpperCase() + email.slice(1).toLowerCase();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -81,19 +80,7 @@ console.log("username:",response.data.username);
 
     
 
-//   const handleLoginError = (error) => {
-//     if (!error.response) {
-//       setResponse("No server response");
-//     } else if (error.response.status === 401) {
-//       setResponse("Unauthorized");
-//     } else if (error.response.status === 400) {
-//       setResponse(" email or password is incorrect");
-//     } else if (error.response.status === 404) {
-//       setResponse("User not found");
-//     } else {
-//       setResponse("Something went wrong");
-//     }
-//   };
+
 
 const showToastMessage = () => {
     toast.success(`Welcome user 😃`, {

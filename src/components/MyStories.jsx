@@ -3,6 +3,8 @@ import axios from "axios";
 import MainNavbar from "./Navigation/MainNavbar";
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import istoImage from "../assets/isto.jpg"; 
+
 
 const MyStories = () => {
   const [stories, setStories] = useState([]);
@@ -32,7 +34,6 @@ const MyStories = () => {
 
   const handleDelete = async (storyId) => {
     try {
-      await axios.delete(`http://localhost:3000/stories/${storyId}`);
       setStories(prevStories => prevStories.filter(item => item._id !== storyId));
     } catch (error) {
       console.error(error);
@@ -40,34 +41,26 @@ const MyStories = () => {
     }
   };
 
-  const handleUpdate = async (storyId, updatedData) => {
-    try {
-      await axios.put(`http://localhost:3000/stories/${storyId}`, updatedData);
-      setStories(prevStories => prevStories.map(item => item._id === storyId ? { ...item, ...updatedData } : item));
-    } catch (error) {
-      console.error(error);
-      setError("Error updating story");
-    }
-  };
+ 
 
   return (
     <div>
       <MainNavbar />
-      <div className="container mx-auto">
-        <h1 className="text-3xl font-bold mt-8 mb-4">My Stories</h1>
+      <div className=" min-h-screen" style={{ backgroundImage: `url(${istoImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <h1 className="text-4xl font-bold text-center text-slate-900 mb-8">Welcome to Your Stories</h1>
         {loading && <p>Loading...</p>}
         {error && <p className="text-red-500">{error}</p>}
-        {!loading && stories.length === 0 && <p className="text-red-300">No stories found.</p>}
+        {!loading && stories.length === 0 && <p className="text-white text-center text-xl text font-bold  shadow-xl  rounded-lg "> No stories found ,Go and share with us ur creativity  .</p>}
         {!loading && stories.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {stories.map((story) => (
               <div key={story._id} className="bg-white rounded-lg shadow-md p-4">
                 <h2 className="text-lg font-bold mb-2">{story.title} by me </h2>
                 <p className="text-gray-600">{story.content}</p>
                 <div className="mt-4 flex justify-between">
-                  <span className="text-gray-500">{story.createdDate}</span>
+                  <span className="text-gray-500">{new Date(story.createdDate).toDateString()}</span>
                   <div>
-                    <button onClick={() => handleUpdate(story._id, { title: 'Updated Title' })}>
+                    <button >
                       <FontAwesomeIcon icon={faEdit} className="text-blue-500" />
                     </button>
                     <button onClick={() => handleDelete(story._id)}>
